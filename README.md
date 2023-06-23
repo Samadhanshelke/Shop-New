@@ -68,3 +68,186 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+
+  
+<!-- navbar -->
+ import React from "react";
+import styled from "styled-components";
+import { AiOutlineShoppingCart } from "react-icons/ai";
+import {HiMenu} from 'react-icons/hi'
+import { useNavContext } from "../Context/Nav_Context";
+import { NavLink } from "react-router-dom";
+
+function NavBar() {
+  
+  const {isOpen,handleMenuClick,navLinks} = useNavContext();
+  return (
+    <Wrapper>
+    <div className={` ${isOpen ?'isclose':'navbar'}`}>
+
+      <span className="logo">
+        Shop<span>New</span>
+        
+      </span>
+      <ul>
+      {navLinks.map((link,i)=>{
+          return(
+           <li key={i}>
+          <NavLink
+            to={link.path}
+            className="nav-link"
+            style={({ isActive }) => ({
+              color: isActive ? "#27374D" : "#27374D",
+            })}
+          >
+            {link.name}
+          </NavLink>
+        </li>
+          )
+      })}
+
+      </ul>
+
+      <div className="cart-loginbtn-wrapper">
+        <span className="cart">
+          <span className="cart-icon">
+            <AiOutlineShoppingCart />
+            <div>
+              <span>5</span>
+            </div>
+          </span>
+        </span>
+        <div className="login-btn">LogIn</div>
+        <div onClick={() => handleMenuClick()} className="hamburger">
+          <HiMenu />
+        </div>
+      </div>
+    </div>
+    </Wrapper>
+  );
+}
+
+const Wrapper = styled.nav`
+  width: 90vw;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  .navbar{
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+
+  }
+  .isclose{
+    display: none;
+  }
+  .logo {
+    font-size: 32px;
+    font-style: italic;
+    font-weight: 900;
+    /* color:#F86F03 */
+    span {
+      color: #f86f03;
+    }
+  }
+  ul {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    li {
+      list-style-type: none;
+      color: #213363;
+      font-size: 18px;
+      text-decoration: none;
+    }
+  }
+  .nav-link {
+    text-decoration: none;
+  }
+  .nav-link:hover {
+    border-bottom: 2px solid #213363;
+  }
+  .cart-loginbtn-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    font-size: 20px;
+  }
+  .hamburger {
+    display: none;
+  }
+  .cart {
+    font-size: 32px;
+    position: relative;
+    cursor: pointer;
+    .cart-icon div {
+      position: absolute;
+      top: 0;
+      right: -10px;
+      border-radius: 50%;
+      display: flex;
+      width: 24px;
+      height: 24px;
+      justify-content: center;
+      align-items: center;
+      background-color: #f86f03;
+      background-color: #f86f03;
+      span {
+        font-size: 18px;
+        color: white;
+      }
+    }
+  }
+  .login-btn {
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 24px;
+    color: #27374d;
+  }
+  @media (max-width: 1024px) {
+    width: 90%;
+    margin: 0 auto;
+  }
+  @media (max-width: 768px) {
+     ul{
+      display: none;
+     }
+     .cart{
+      display: none;
+     }
+     .login-btn{
+      display: none;
+     }
+     .hamburger{
+      display: block;
+      color: #f86f03;
+      font-size:36px;
+      font-weight:900;
+     }
+     
+  }
+
+  @media (min-width: 769px) {
+      .isclose{
+    /* display: flex; */
+    width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+  }
+  }
+`;
+export default NavBar;
