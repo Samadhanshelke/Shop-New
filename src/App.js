@@ -1,6 +1,6 @@
 import { Route, Routes } from "react-router-dom";
-import { About, Home, Product } from "./Pages";
-import styled from "styled-components";
+import { About, Home, Products,SingleProduct ,Cart} from "./Pages";
+
 import { NavBar,SideBar,Footer } from "./Components";
 function App() {
   
@@ -13,10 +13,14 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
-        <Route path="/products" element ={<Product/>}/>
+        <Route path="/products" element ={<Products/>}/>
+        <Route path="/cart" element ={<Cart/>}/>
+
+        <Route path="/products/:id" element ={<SingleProduct/>}/>
+
 
       </Routes>
-     
+      <Footer/>
     </>
   );
 }

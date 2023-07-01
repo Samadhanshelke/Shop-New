@@ -1,20 +1,13 @@
 import React from "react";
-import { useQuery } from "react-query";
-import customFetch from "../Components/Utils";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { Product } from "../Components";
+import { useDataContext } from "../Context/DataContext";
 function FeaturedProducts() {
-  const result = useQuery({
-    queryKey: ["Products"],
-    queryFn: async () => {
-      const { data } = await customFetch.get("/");
-      return data;
-    },
-  });
-  const { data, isLoading } = result;
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
+  const { isLoading, data }= useDataContext();
+
+ 
+  // console.log(data);
   return (
     <Wrapper>
       <div className="featured">
@@ -23,23 +16,19 @@ function FeaturedProducts() {
 
           <span></span>
         </div>
-        <div className="featured_products">
-          {data.slice(0, 3).map((Product) => {
-            return (
-              <div className="product_div">
-                <img src={Product.image} alt="" />
-                <div>
-                  <span className="title">
-                    {Product.title.length > 20
-                      ? `${Product.title.slice(0, 20)}...`
-                      : Product.title}
-                  </span>
-                  <span>$ {Product.price}</span>
-                </div>
-              </div>
-            );
-          })}
-        </div>
+
+        {isLoading ? (
+          <div>Loading</div>
+        ) : (
+          <div className="featured_products">
+            {data &&
+              Array.isArray(data) &&
+              data.slice(0, 3).map((product) => {
+                return <Product  product={product} />;
+              })}
+          </div>
+        )}
+
         <Link to="/products">
           <button className="btn">All Products</button>
         </Link>
@@ -47,9 +36,7 @@ function FeaturedProducts() {
     </Wrapper>
   );
 }
-// color: #102a42;
-// background-color: #f86f03;
-// background-color: #f86f03;
+
 const Wrapper = styled.section`
   display: flex;
   width: 100%;
@@ -92,38 +79,12 @@ const Wrapper = styled.section`
     display: flex;
     gap: 30px;
     width: 100%;
-    /* border:4px solid black; */
-    /* justify-content: space-between; */
     align-items: center;
+    flex-direction: row;
     justify-content: center;
     margin: 30px auto 0 auto;
     flex-wrap: wrap;
     box-sizing: border-box;
-
-  }
-
-  .product_div {
-    display: flex;
-    flex-direction: column;
-    gap: 22px;
-    width: 370px;
-    max-width: 300px;
-    img {
-      width: 90%;
-      height: 220px;
-      border: 2px solid black;
-      padding: 12px;
-      border-radius: 6px;
-    }
-    .title {
-      color: #102a42;
-      letter-spacing: 1.2px;
-      font-size: 16px;
-    }
-    div {
-      display: flex;
-      justify-content: space-between;
-    }
   }
   .btn {
     padding: 12px 16px;
@@ -137,6 +98,7 @@ const Wrapper = styled.section`
     cursor: pointer;
     letter-spacing: 1.2px;
   }
+
   @media (max-width: 1025px) {
     .featured_products {
       justify-content: center;
@@ -145,8 +107,18 @@ const Wrapper = styled.section`
   }
   @media (max-width: 426px) {
     width: 100%;
-    
-   
+
+    .featured_products {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+
+  @media (max-width: 426px) {
+    width: 100%;
+
     .featured {
       width: 100%;
       margin: 50px auto 50px auto;
@@ -154,22 +126,6 @@ const Wrapper = styled.section`
       flex-direction: column;
       justify-content: center;
       align-items: center;
-     
-    }
-    .featured_products {
-      width:100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-     
-    }
-  }
-  @media (max-width: 321px) {
-    .product_div {
-      justify-content: center;
-      margin: 0 auto;
-     max-width: 260px;
-      
     }
   }
 `;

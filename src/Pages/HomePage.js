@@ -7,7 +7,7 @@ function HomePage() {
          <FeaturedProducts/>
          <Mission/>
          <Contact/>
-         <Footer/>
+         {/* <Footer/> */}
 
     </div>
   )

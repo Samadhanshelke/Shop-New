@@ -57,7 +57,7 @@ function Mission() {
 const Wrapper = styled.section`
   background-color: #eaded7;
   height: 400px;
-  margin-top: 60px;
+  /* margin-top: 60px; */
   margin-bottom: 60px;
   width: 100%;
 

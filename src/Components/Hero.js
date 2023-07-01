@@ -2,7 +2,7 @@ import React from "react";
 import { styled } from "styled-components";
 import { Link } from "react-router-dom";
 
-function HomePage() {
+function Hero() {
   return (
     <Wrapper>
       <div className="main">
@@ -185,4 +185,4 @@ const Wrapper = styled.section`
     }
   }
 `;
-export default HomePage;
+export default Hero;

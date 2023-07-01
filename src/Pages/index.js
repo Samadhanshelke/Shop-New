@@ -1,4 +1,6 @@
 import Home from './HomePage'
-import Product from './ProductPage'
+import Products from './ProductPage'
 import About from './AboutPage'
-export {Home,Product,About}
+import SingleProduct from './SingleProductPage'
+import Cart from './Cart'
+export {Home,Products,About,SingleProduct,Cart}

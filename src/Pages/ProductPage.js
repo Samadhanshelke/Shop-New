@@ -1,18 +1,35 @@
-import React from 'react'
-import { styled } from 'styled-components'
+import React from "react";
+import { styled } from "styled-components";
+import {Filter,Sort,ProductList} from '../Components'
 function ProductPage() {
   return (
-    <Wrapper>ProductPage</Wrapper>
-  )
+    <Wrapper>
+      <div className="section_center">
+        <Filter />
+
+        <div>
+          <Sort/>
+          <ProductList/>
+        </div>
+      </div>
+    </Wrapper>
+  );
 }
 const Wrapper = styled.section`
-width: 100%;
+  
+  .section_center{
+    margin: 50px auto 0 auto;
+    display: grid;
+    width: 90%;
   height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  /* border: 1px solid red; */
-  margin: 50px auto 0 auto;
-`
-export default ProductPage
+  max-width: 1200px;
+
+  }
+  @media (min-width: 768px) {
+    .section_center{
+      grid-template-columns: 200px 1fr;
+      column-gap:40px;
+    }
+  }
+`;
+export default ProductPage;
