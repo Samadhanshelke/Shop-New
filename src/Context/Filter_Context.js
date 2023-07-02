@@ -22,14 +22,15 @@ function FilterProvider({ children }) {
 
   useEffect(() => {
     setFiltered_products(data);
-    if (filtered_products && filtered_products.length > 0) {
+    if (data && data.length > 0) {
       let maxPrice =
-        filtered_products && filtered_products.map((product) => product.price);
+        data && data.map((product) => product.price);
       maxPrice = Math.max(...maxPrice);
+      console.log(maxPrice);
       setFilter({ ...filter, price: maxPrice, max_price: maxPrice });
       setMax(maxPrice);
     }
-  }, [data, filtered_products]);
+  }, [data,]);
 
   const setgridview = () => {
     setGridView(true);
@@ -43,45 +44,48 @@ function FilterProvider({ children }) {
   };
 
   const updateFilters = (e) => {
-    // setFilter({ ...filter, text: e.target.value });
     const name = e.target.name;
     let value = e.target.value;
-    //   if (e.target.name === "category") {
-    //     setFilter({ ...filter, category: e.target.textContent });
-    //   }
-    //   if (e.target.name === "price") {
-
-    //     setFilter({...filter,price:e.target.value})
-    // };
+    
 
     if (name === "category") {
       value = e.target.textContent.toLowerCase();
+      if (value === "all") {
+        setFiltered_products(data);
+      } else {
+        const filteredProducts = data.filter((product) => {
+          return product.category === value;
+        });
+        setFiltered_products(filteredProducts);
+      }
+     
     }
 
     if (name === "price") {
       value = parseInt(e.target.value);
+      const filteredProducts = data.filter((product)=>{
+        return product.price <= value + 1;
+
+      })
+      setFiltered_products(filteredProducts)
+    }
+    setFilter({...filter,text:value})
+    if(name === "text"){
+        console.log(text);
+       const filteredProducts = data.filter((product)=>{
+        return product.title.toLowerCase().startsWith(value.toLowerCase());
+       })
+       setFiltered_products(filteredProducts);
+       
     }
 
     setFilter({ ...filter, [name]: value });
   };
 
-  useEffect(() => {
-    if (text) {
-      tempProducts = [...data];
-      tempProducts =
-        data &&
-        data.filter((product) => {
-          return product.title.toLowerCase().startsWith(text);
-        });
 
-      setFiltered_products(tempProducts);
-    }
+  // ***********------*****************
 
-    return () => {
-      setFiltered_products(data);
-    };
-  });
-
+  
   const clearFilters = () => {
     setFilter({
       ...filter,
@@ -89,6 +93,7 @@ function FilterProvider({ children }) {
       category: "all",
       price: max,
     });
+    setFiltered_products(data)
   };
 
   if (sorted === "price-lowest") {
