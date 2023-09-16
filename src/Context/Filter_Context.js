@@ -23,14 +23,13 @@ function FilterProvider({ children }) {
   useEffect(() => {
     setFiltered_products(data);
     if (data && data.length > 0) {
-      let maxPrice =
-        data && data.map((product) => product.price);
+      let maxPrice = data && data.map((product) => product.price);
       maxPrice = Math.max(...maxPrice);
-      console.log(maxPrice);
+    
       setFilter({ ...filter, price: maxPrice, max_price: maxPrice });
       setMax(maxPrice);
     }
-  }, [data,]);
+  }, [data]);
 
   const setgridview = () => {
     setGridView(true);
@@ -43,11 +42,48 @@ function FilterProvider({ children }) {
     setSorted(e.target.value);
   };
 
-  const updateFilters = (e) => {
-    const name = e.target.name;
-    let value = e.target.value;
-    
+  // const updateFilters = (e) => {
+  //   const name = e.target.name;
+  //   let value = e.target.value;
 
+  //   if (name === "category") {
+  //     value = e.target.textContent.toLowerCase();
+  //     if (value === "all") {
+  //       setFiltered_products(data);
+  //     } else {
+  //       const filteredProducts = data.filter((product) => {
+  //         return product.category === value;
+  //       });
+  //       setFiltered_products(filteredProducts);
+  //     }
+  //   }
+
+  //   if (name === "price") {
+  //     value = parseInt(e.target.value);
+  //     const filteredProducts = data.filter((product) => {
+  //       return product.price <= value + 1;
+  //     });
+  //     setFiltered_products(filteredProducts);
+  //   }
+
+  //   // setFilter({ ...filter, text: value });
+  //   if (name === "text") {
+  //     console.log(text);
+  //     const tempProducts = data.filter((product) => {
+  //       return product.title.toLowerCase().startsWith(value.toLowerCase());
+  //     });
+  //     setFiltered_products(tempProducts);
+  //   }
+
+  //   setFilter({ ...filter, [name]: value });
+  // };
+
+  // ***********------*****************
+
+  const updateFilters = (e) => {
+    let name = e.target.name;
+    let value = e.target.value;
+   
     if (name === "category") {
       value = e.target.textContent.toLowerCase();
       if (value === "all") {
@@ -58,34 +94,46 @@ function FilterProvider({ children }) {
         });
         setFiltered_products(filteredProducts);
       }
-     
     }
-
+   
     if (name === "price") {
       value = parseInt(e.target.value);
-      const filteredProducts = data.filter((product)=>{
+      const filteredProducts = data.filter((product) => {
         return product.price <= value + 1;
-
-      })
-      setFiltered_products(filteredProducts)
-    }
-    setFilter({...filter,text:value})
-    if(name === "text"){
-        console.log(text);
-       const filteredProducts = data.filter((product)=>{
-        return product.title.toLowerCase().startsWith(value.toLowerCase());
-       })
-       setFiltered_products(filteredProducts);
-       
+      });
+      setFiltered_products(filteredProducts);
     }
 
-    setFilter({ ...filter, [name]: value });
-  };
+    // if (name === "text") {
+    //       console.log(text);
+    //       const filteredProducts = data.filter((product) => {
+    //         return product.title.toLowerCase().startsWith(value.toLowerCase());
+    //       });
+    //       setFiltered_products(filteredProducts);
+    //     }
+   
+    // Update the filter object with the new values
+    const updatedFilter = { ...filter, [name]: value };
+    
+    // Apply all the filters at once
+    let filteredProducts = data.filter((product) => {
+      if (updatedFilter.category !== "all" && product.category !== updatedFilter.category) {
+        return false;
+      }
+      if (updatedFilter.price > 0 && product.price > updatedFilter.price) {
+        return false;
+      }
+      if (updatedFilter.text && !product.title.toLowerCase().includes(updatedFilter.text.toLowerCase())) {
+        return false;
+      }
+      return true;
+    });
+   
+    setFilter(updatedFilter);
+    setFiltered_products(filteredProducts);
+  };  
 
 
-  // ***********------*****************
-
-  
   const clearFilters = () => {
     setFilter({
       ...filter,
@@ -93,7 +141,7 @@ function FilterProvider({ children }) {
       category: "all",
       price: max,
     });
-    setFiltered_products(data)
+    setFiltered_products(data);
   };
 
   if (sorted === "price-lowest") {

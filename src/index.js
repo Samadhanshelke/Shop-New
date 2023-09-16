@@ -8,20 +8,23 @@ import { BrowserRouter } from "react-router-dom";
 import NavProvider from "./Context/Nav_Context";
 import DataProvider from "./Context/DataContext";
 import FilterProvider from "./Context/Filter_Context";
+import CartProvider from "./Context/CartContext";
 const queryClient = new QueryClient();
 const root = ReactDOM.createRoot(document.getElementById("root"));
+
 root.render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
       <DataProvider>
-      <FilterProvider>
-
-        <NavProvider>
-          <BrowserRouter>
-            <App />
-          </BrowserRouter>
-        </NavProvider>
-      </FilterProvider>
+        <FilterProvider>
+          <NavProvider>
+            <CartProvider>
+              <BrowserRouter>
+                <App />
+              </BrowserRouter>
+            </CartProvider>
+          </NavProvider>
+        </FilterProvider>
       </DataProvider>
     </QueryClientProvider>
   </React.StrictMode>

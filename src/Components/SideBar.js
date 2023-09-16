@@ -5,14 +5,16 @@ import { AiOutlineShoppingCart } from "react-icons/ai";
 import { IoClose } from "react-icons/io5";
 import { NavLink } from "react-router-dom";
 import { useNavContext } from "../Context/Nav_Context";
+import { useCartContext } from "../Context/CartContext";
 function SideBar() {
   const { isOpen, handleCloseClick, navLinks } = useNavContext();
+  const {totalCount} = useCartContext();
   return (
     <Wrapper>
       <div className={` ${isOpen ? "show_sidebar sidebar" : "sidebar"}`}>
         <div className="logo_icon_div">
           <span className="logo">
-            Shopy<span>New</span>
+            Shop<span>New</span>
           </span>
           <span className="close-icon" onClick={() => handleCloseClick()}>
             <IoClose />
@@ -43,7 +45,7 @@ function SideBar() {
             <span className="cart-icon">
               <AiOutlineShoppingCart />
               <div>
-                <span>5</span>
+                <span>{totalCount}</span>
               </div>
             </span>
           </span>
@@ -63,8 +65,9 @@ const Wrapper = styled.section`
 
   .sidebar {
     position: fixed;
-    top: 0;
+    top: 20px;
     left: 0;
+    right:0;
     width: 100%;
     height: 100%;
     transition: 0.2s ease-in-out;
@@ -77,7 +80,7 @@ const Wrapper = styled.section`
     transform: translate(0);
     background-color: white;
     display: flex;
-    width: 90%;
+    width: 91%;
     
     margin-top: 10px;
     margin-left: 30px;
@@ -103,6 +106,9 @@ const Wrapper = styled.section`
   }
   .nav-link {
     text-decoration: none;
+    color: #27374d;
+      font-size:20px;
+      font-weight:500;
   }
   .nav-link:hover {
     border-bottom: 2px solid #213363;
@@ -173,7 +179,7 @@ const Wrapper = styled.section`
 
   @media (max-width: 426px) {
     .show_sidebar {
-      width: 96%;
+      width: 92%;
       margin-top: 10px;
       margin-left: 10px;
      

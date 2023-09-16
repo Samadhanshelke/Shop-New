@@ -59,6 +59,8 @@ const Wrapper = styled.section`
     margin-top: 20px;
     line-height: 1.9;
     color: #27374d;
+    font-size:17px;
+    font-weight:500;
   }
   h1{
     font-size: 40px;
@@ -73,8 +75,37 @@ const Wrapper = styled.section`
       width:120px;
       height:3px;
       border-radius: 4px;
-      background-color: red;
+      background-color:  #f86f03;
     }
+
+  }
+  @media (max-width: 1025px) {
+     .jewlerry_img{
+       height:300px;
+       width:400px;
+     }
+  }
+
+  @media (max-width: 768px) {
+     flex-direction:column;
+     width: 100%;
+  max-width: 600px;
+     margin-top:120px;
+     .jewlerry_img{
+       height:500px;
+       width:500px;
+     }
+  }
+  @media (max-width: 426px) {
+  
+     p{
+      width:400px;
+      height:400px;
+     }
+     .jewlerry_img{
+       height:200px;
+       width:200px;
+     }
   }
 `;
 export default AboutPage;

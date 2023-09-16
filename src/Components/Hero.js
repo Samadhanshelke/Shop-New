@@ -1,11 +1,14 @@
 import React from "react";
 import { styled } from "styled-components";
 import { Link } from "react-router-dom";
+import { useNavContext } from "../Context/Nav_Context";
+
 
 function Hero() {
+  const { isOpen, handleCloseClick, navLinks } = useNavContext();
   return (
     <Wrapper>
-      <div className="main">
+      <div className={`main ${isOpen ? "whitebg": " "}`}>
         <div className="main_content">
           <h1 className="main_heading">Get Your Comfort Products</h1>
           <span className="main_para">
@@ -60,6 +63,7 @@ const Wrapper = styled.section`
     margin:0 auto 30px auto;
     
   }
+ 
   .main_content {
     display: flex;
     flex-direction: column;
@@ -160,6 +164,11 @@ const Wrapper = styled.section`
       width: 400px;
       /* max-width: 100%; */
     }
+    .whitebg{
+   visibility: hidden;
+ height: 100vh;
+    z-index: -1;
+  }
   }
   @media (max-width: 376px) {
     .main_content {

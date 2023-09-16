@@ -65,7 +65,7 @@ const Wrapper = styled.section`
     display: flex;
     justify-content: space-around;
     align-items: center;
-    margin-top: 40px;
+
     margin-bottom: 20px;
     height: 250px;
     h1 {
@@ -123,12 +123,14 @@ const Wrapper = styled.section`
   @media (max-width:1025px){
     width:100%;
     height:100%;
+    margin-bottom:50px;
     
     .mission_container {
       flex-wrap: wrap;
       justify-content: center;
       align-items: center;
-     
+      padding-bottom:40px;
+    
     }
      .mission_headers {
          width:100%;

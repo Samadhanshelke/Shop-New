@@ -4,9 +4,10 @@ import { AiOutlineShoppingCart } from "react-icons/ai";
 import { HiMenu } from "react-icons/hi";
 import { useNavContext } from "../Context/Nav_Context";
 import { Link } from "react-router-dom";
-
+import { useCartContext } from "../Context/CartContext";
 function NavBar() {
   const { isOpen, handleMenuClick, navLinks } = useNavContext();
+  const {totalCount} = useCartContext();
   return (
     <Wrapper>
       <div className="nav-center">
@@ -26,14 +27,14 @@ function NavBar() {
         </ul>
 
         <div className="cart-loginbtn-wrapper">
-          <span className="cart">
+          <Link to='/cart' className="cart">
             <span className="cart-icon">
               <AiOutlineShoppingCart />
               <div>
-                <span>5</span>
+                <span>{totalCount}</span>
               </div>
             </span>
-          </span>
+          </Link>
           <div className="login-btn">LogIn</div>
           <div onClick={() => handleMenuClick()} className="hamburger">
             <HiMenu />
@@ -88,12 +89,13 @@ const Wrapper = styled.nav`
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border: 1px solid red;
+      /* border: 1px solid red; */
     }
     .nav-links {
       display: flex;
       justify-content: center;
       align-items: center;
+     
 
       li {
         list-style-type: none;
@@ -105,6 +107,9 @@ const Wrapper = styled.nav`
     }
     .nav-link {
       text-decoration: none;
+      color: #27374d;
+      font-size:20px;
+      font-weight:500;
     }
     .nav-link:hover {
       border-bottom: 2px solid #213363;
@@ -146,7 +151,7 @@ const Wrapper = styled.nav`
     .login-btn {
       display: block;
       cursor: pointer;
-      font-weight: 300;
+      font-weight: 500;
       font-size: 24px;
       color: #27374d;
       color: black;

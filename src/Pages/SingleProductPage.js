@@ -33,7 +33,7 @@ function SingleProduct() {
           <Star star={data.rating.rate} review={data.rating.count} />
           <span className="price">$ {data.price}</span>
           <p>{data.description}</p>
-          <AddToCart/>
+          <AddToCart data = {data}/>
         </div>
       </div>
     </Wrapper>
