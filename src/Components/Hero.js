@@ -27,16 +27,7 @@ function Hero() {
             src="https://3djewelsindia.com/images/new-ecom-images/Banner-1.jpg"
             alt=""
           />
-          <img
-            className="boy_img"
-            src="https://cdn11.bigcommerce.com/s-sp6ookcq2f/products/3990/images/15206/16_MINIHONEY_RESIZEWEBSITE_de5d07c1-ce90-4a4d-945a-1c46c47ea702__62306.1660556659.1280.1280.jpg?c=1"
-            alt=""
-          />
-          {/* <img
-            className="abstrt_img"
-            src="https://png.pngtree.com/thumb_back/fh260/background/20220428/pngtree-blurred-background-website-blue-texture-image_1105018.jpg"
-            alt=""
-          /> */}
+         
         </div>
       </div>
    
